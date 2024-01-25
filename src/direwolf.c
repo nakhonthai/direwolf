@@ -1579,8 +1579,12 @@ void app_process_rec_packet (int chan, int subchan, int slice, packet_t pp, alev
  * confidence that it is correct.
  */
 	  if (ax25_is_aprs(pp) && ( retries == RETRY_NONE || fec_type == fec_type_fx25 || fec_type == fec_type_il2p) ) {
-
-	    igate_send_rec_packet (chan, pp);
+ 		if (!A_opt_ais_to_obj){
+                        igate_send_rec_packet (chan, pp);
+                }else if (A_opt_ais_to_obj && strlen(ais_obj_packet) != 0) {
+                        packet_t ais_pp = ax25_from_text (ais_obj_packet, 1);
+                        igate_send_rec_packet (chan, ais_pp);
+                }
 	  }
 
 
