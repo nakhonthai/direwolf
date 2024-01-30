@@ -1584,6 +1584,7 @@ void app_process_rec_packet (int chan, int subchan, int slice, packet_t pp, alev
                 }else if (A_opt_ais_to_obj && strlen(ais_obj_packet) != 0) {
                         packet_t ais_pp = ax25_from_text (ais_obj_packet, 1);
                         igate_send_rec_packet (chan, ais_pp);
+			ax25_delete (ais_pp);
                 }
 	  }
 
